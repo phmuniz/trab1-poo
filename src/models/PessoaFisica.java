@@ -1,6 +1,8 @@
 package models;
 import java.util.Date;
 
+import date.DateFunctions;
+
 public class PessoaFisica extends Pessoa {
 
     private Date dataNascimento;
@@ -37,5 +39,19 @@ public class PessoaFisica extends Pessoa {
 
     public double getGastoMensal() {
         return gastoMensal;
+    }
+
+    public void printPessoaFisica(){
+
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Id: " + this.getId());
+        System.out.println("Endereco: " + this.getEndereco());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("CPF: " + this.getCpf());
+        System.out.printf("Data Nascimento: ");
+        DateFunctions.printData(this.dataNascimento);
+        System.out.println("Poupanca: " + this.poupanca);
+        System.out.println("Salario: " + this.salario);
+        System.out.println("Gasto Mensal: " + this.gastoMensal);
     }
 }

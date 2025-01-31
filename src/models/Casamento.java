@@ -1,5 +1,5 @@
 package models;
-
+import date.DateFunctions;
 import java.util.Date;
 
 public class Casamento extends Evento {
@@ -18,5 +18,12 @@ public class Casamento extends Evento {
         if(festa == null) return false;
 
         return true;
+    }
+    public void printCasamento(){
+        System.out.println("Id:" + this.getId());
+        System.out.println("Local:" + this.getLocal());
+        System.out.printf("Data: ");
+        DateFunctions.printData(this.getData());
+        System.out.println("Hora:"+ this.getHora());
     }
 }

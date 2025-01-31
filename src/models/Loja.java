@@ -5,9 +5,9 @@ public class Loja {
     private PessoaJuridica pessoaJuridica;
     private double valorRecebido;
 
-    public Loja(PessoaJuridica pessoaJuridica, double valorRecebido) {
+    public Loja(PessoaJuridica pessoaJuridica) {
         this.pessoaJuridica = pessoaJuridica;
-        this.valorRecebido = valorRecebido;
+        this.valorRecebido = 0;
     }
 
     public PessoaJuridica getPessoaJuridica() {

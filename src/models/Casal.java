@@ -30,4 +30,15 @@ public class Casal {
     public Casamento getCasamento() {
         return casamento;
     }
+
+    public void setCasamento(Casamento casamento){
+        this.casamento = casamento;
+    }
+
+    public void printCasal(){
+        this.pessoa1.printPessoaFisica();
+        this.pessoa2.printPessoaFisica();
+        if(this.lar != null) this.lar.printLar();
+        if(this.casamento != null) this.casamento.printCasamento();
+    }
 }

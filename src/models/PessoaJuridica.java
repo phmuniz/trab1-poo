@@ -11,4 +11,13 @@ public class PessoaJuridica extends Pessoa {
     public String getCnpj(){
         return cnpj;
     }
+    public void printPessoaJuridica(){
+
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Id: " + this.getId());
+        System.out.println("Endereco: " + this.getEndereco());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("CNPJ: " + this.cnpj);
+        
+    }
 }
