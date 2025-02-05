@@ -10,6 +10,7 @@ public class Main {
         LeituraArquivos.lePessoas(db, "src/inputs/pessoas.csv");
         LeituraArquivos.leLares(db, "src/inputs/lares.csv");
         LeituraArquivos.leCasamentos(db, "src/inputs/casamentos.csv");
+        LeituraArquivos.leTarefas(db, "src/inputs/tarefas.csv");
 
         CasalServices.printCasais(db);
     }

@@ -7,6 +7,7 @@ import models.PessoaFisica;
 import models.PessoaJuridica;
 import models.Casamento;
 import models.Lar;
+import models.PrestadorServico;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class Database {
     private List<Casal> casais = new ArrayList<Casal>();
     private List<Casamento> casamentos = new ArrayList<Casamento>();
     private List<Lar> lares = new ArrayList<Lar>();
+    private List<PrestadorServico> prestadoresServico = new ArrayList<PrestadorServico>();
 
 
     // FUNCOES PESSOA FISICA
@@ -106,5 +108,39 @@ public class Database {
     public void adicionaLar(Lar lar){
 
         this.lares.add(lar);
+    }
+
+    public Lar getLarById(String id){
+        
+         for(int i = 0; i < this.lares.size(); i++){
+
+              Lar lar = this.lares.get(i);
+
+            if((id.compareTo(lar.getId()) == 0)){
+                return lar;
+            }
+        }
+        return null;
+        
+    }
+
+    //FUNCOES PRESTADORES
+    public void adicionaPrestador(PrestadorServico prestador){
+
+        this.prestadoresServico.add(prestador);
+    }
+
+    public PrestadorServico getPrestadorById(String id){
+        
+         for(int i = 0; i < this.lares.size(); i++){
+
+              PrestadorServico prestador = this.prestadoresServico.get(i);
+
+            if((id.compareTo(prestador.getId()) == 0)){
+                return prestador;
+            }
+        }
+        return null;
+        
     }
 }

@@ -17,6 +17,10 @@ public class Lar {
         this.complemento = complemento;
     }
 
+    public String getId() {
+        return id;
+    }
+    
     public String getRua() {
         return rua;
     }
@@ -40,5 +44,9 @@ public class Lar {
         System.out.println("Rua: " + this.rua);
         System.out.println("Numero: " + this.numero);
         System.out.println("Complemento: " + this.complemento);
+        for(int i = 0; i < this.tarefas.size(); i++){
+            Tarefa t = this.tarefas.get(i);
+            t.printTarefa();
+        }
     }
 }

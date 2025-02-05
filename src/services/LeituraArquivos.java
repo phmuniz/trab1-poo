@@ -7,6 +7,9 @@ import models.Loja;
 import models.Lar;
 import models.Casal;
 import models.Casamento;
+import models.PrestadorServico;
+import models.Tarefa;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,6 +38,11 @@ public class LeituraArquivos {
                     catch(ParseException e){
                         dataNascimento = null;
                     }
+
+
+                    valores[7] = valores[7].replace(',', '.');
+                    valores[8] = valores[8].replace(',', '.');
+                    valores[9] = valores[9].replace(',', '.');
 
                     PessoaFisica pessoa = new PessoaFisica(
                         valores[0], valores[2], valores[4], valores[3],
@@ -91,13 +99,13 @@ public class LeituraArquivos {
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
 
-                 Date dataCasamento;
-                    try{
-                        dataCasamento = DateFunctions.criaData(valores[3]);
-                    }
-                    catch(ParseException e){
-                        dataCasamento = null;
-                    }
+                Date dataCasamento;
+                try{
+                    dataCasamento = DateFunctions.criaData(valores[3]);
+                }
+                catch(ParseException e){
+                    dataCasamento = null;
+                }
                 
                 Casamento casamento = new Casamento(valores[5],dataCasamento,valores[4],valores[0],null);
                 
@@ -114,6 +122,42 @@ public class LeituraArquivos {
                 }
 
                 db.adicionaCasamento(casamento);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro de IO");
+        }
+    }
+
+
+    public static void leTarefas(Database db, String caminho){
+
+        try {
+            List<String> linhas = Files.readAllLines(Paths.get(caminho));
+            for (String linha : linhas) {
+                String[] valores = linha.split(";");
+
+                Date dataInicial;
+                try{
+                    dataInicial = DateFunctions.criaData(valores[3]);
+                }
+                catch(ParseException e){
+                    dataInicial = null;
+                }
+
+                valores[5] = valores[5].replace(',', '.');
+
+                Tarefa tarefa = new Tarefa(valores[0], dataInicial, Integer.parseInt(valores[4]), Double.parseDouble(valores[5]), Integer.parseInt(valores[6]));
+
+                Lar lar = db.getLarById(valores[1]);
+                lar.adicionaTarefa(tarefa);
+
+                PessoaFisica pf = db.getPessoaFisicaById(valores[2]);
+                PessoaJuridica pj = db.getPessoaJuridicaById(valores[2]);
+
+                PrestadorServico ps = new PrestadorServico(pf,pj);
+                ps.recebeValor(Double.parseDouble(valores[5]));
+                db.adicionaPrestador(ps);
+                
             }
         } catch (IOException e) {
             System.out.println("Erro de IO");

@@ -7,12 +7,12 @@ public class Tarefa {
     
     private String id;
     private Date dataInicio;
-    private Date prazoEntrega;
+    private int prazoEntrega;
     private double valorPrestador;
     private int numParcelas;
     private List<Compra> compras = new ArrayList<Compra>();
 
-    public Tarefa(String id, Date dataInicio, Date prazoEntrega, double valorPrestador, int numParcelas){
+    public Tarefa(String id, Date dataInicio, int prazoEntrega, double valorPrestador, int numParcelas){
 
         this.id = id;
         this.dataInicio = dataInicio;
@@ -29,7 +29,7 @@ public class Tarefa {
         return dataInicio;
     }
 
-    public Date getPrazoEntrega() {
+    public int getPrazoEntrega() {
         return prazoEntrega;
     }
 
@@ -44,5 +44,8 @@ public class Tarefa {
 
         this.compras.add(compra);
     }
+    public void printTarefa(){
 
+        System.out.println("Tarefa " + this.id);
+    }
 }
