@@ -8,6 +8,8 @@ import models.PessoaJuridica;
 import models.Casamento;
 import models.Lar;
 import models.PrestadorServico;
+import models.Tarefa;
+import models.Festa;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,8 @@ public class Database {
     private List<Casamento> casamentos = new ArrayList<Casamento>();
     private List<Lar> lares = new ArrayList<Lar>();
     private List<PrestadorServico> prestadoresServico = new ArrayList<PrestadorServico>();
+    private List<Tarefa> tarefas= new ArrayList<Tarefa>();
+    private List<Festa> festas= new ArrayList<Festa>();
 
 
     // FUNCOES PESSOA FISICA
@@ -68,6 +72,23 @@ public class Database {
         this.lojas.add(loja);
     }
     
+    public Loja getLojaById(String id){
+
+        for(int i = 0; i < this.lojas.size(); i++){
+
+            Loja loja = this.lojas.get(i);
+
+            if(id.compareTo(loja.getId()) == 0){
+                return loja;
+            }
+        }
+        return null;
+    }
+
+    public List<Loja> getLojas(){
+
+        return this.lojas;
+    }
 
     //FUNCOES CASAIS
     public void adicionaCasal(Casal casal){
@@ -102,7 +123,20 @@ public class Database {
 
         this.casamentos.add(casamento);
     }
-    
+
+    public Casamento getCasamentoById(String id){
+        
+         for(int i = 0; i < this.casamentos.size(); i++){
+
+              Casamento casamento = this.casamentos.get(i);
+
+            if((id.compareTo(casamento.getId()) == 0)){
+                return casamento;
+            }
+        }
+        return null;
+        
+    }
 
     //FUNCOES LAR
     public void adicionaLar(Lar lar){
@@ -132,7 +166,7 @@ public class Database {
 
     public PrestadorServico getPrestadorById(String id){
         
-         for(int i = 0; i < this.lares.size(); i++){
+         for(int i = 0; i < this.prestadoresServico.size(); i++){
 
               PrestadorServico prestador = this.prestadoresServico.get(i);
 
@@ -140,7 +174,39 @@ public class Database {
                 return prestador;
             }
         }
-        return null;
+
+        return null;  
+    }
+
+     public List<PrestadorServico> getPrestadoresServico(){
+
+        return this.prestadoresServico;
+    }
+    
+
+    //FUNCOES TAREFAS
+    public void adicionaTarefa(Tarefa tarefa){
+
+        this.tarefas.add(tarefa);
+    }
+
+    public Tarefa getTarefaById(String id){
         
+        for(int i = 0; i < this.tarefas.size(); i++){
+
+             Tarefa tarefa = this.tarefas.get(i);
+
+           if((id.compareTo(tarefa.getId()) == 0)){
+               return tarefa;
+           }
+       }
+
+       return null;
+   }
+
+   // FUNCOES FESTAS
+  public void adicionaFestas(Festa festa){
+
+        this.festas.add(festa);
     }
 }

@@ -9,6 +9,8 @@ import models.Casal;
 import models.Casamento;
 import models.PrestadorServico;
 import models.Tarefa;
+import models.Festa;
+import models.Compra;
 
 
 import java.io.IOException;
@@ -158,6 +160,61 @@ public class LeituraArquivos {
                 ps.recebeValor(Double.parseDouble(valores[5]));
                 db.adicionaPrestador(ps);
                 
+                db.adicionaTarefa(tarefa);
+            }
+        } catch (IOException e) {
+            System.out.println("Erro de IO");
+        }
+    }
+    
+    public static void leFestas(Database db, String caminho){
+
+        try {
+            List<String> linhas = Files.readAllLines(Paths.get(caminho));
+            for (String linha : linhas) {
+                String[] valores = linha.split(";");
+
+                 Date dataFesta;
+                try{
+                    dataFesta = DateFunctions.criaData(valores[3]);
+                }
+                catch(ParseException e){
+                    dataFesta = null;
+                }
+                valores[5] = valores[5].replace(',', '.');
+                int numConvidados = Integer.parseInt(valores[7]);
+                Casamento casal = db.getCasamentoById(valores[1]);
+                Festa festa = new Festa(valores[2],dataFesta,valores[4],valores[0],Double.parseDouble(valores[5]),
+                numConvidados,Integer.parseInt(valores[6]));
+                for(int i = 0; i < numConvidados;i++){
+                    festa.adicionaConvidado(valores[8 + i]);
+                }
+                casal.setFesta(festa);
+                db.adicionaFestas(festa);
+                
+            }
+        } catch (IOException e) {
+            System.out.println("Erro de IO");
+        }
+    }
+
+    public static void leCompras(Database db, String caminho){
+
+        try {
+            List<String> linhas = Files.readAllLines(Paths.get(caminho));
+            for (String linha : linhas) {
+                String[] valores = linha.split(";");
+
+                valores[5] = valores[5].replace(',', '.');
+
+                Compra compra = new Compra(valores[0], valores[3], Integer.parseInt(valores[4]), Double.parseDouble(valores[5]), Integer.parseInt(valores[6]));
+
+                Tarefa tarefa = db.getTarefaById(valores[1]);
+                tarefa.adicionaCompra(compra);
+
+                Loja loja = db.getLojaById(valores[2]);
+                double valorRecebidoLoja = Integer.parseInt(valores[4]) * Double.parseDouble(valores[5]);
+                loja.recebeValor(valorRecebidoLoja);
             }
         } catch (IOException e) {
             System.out.println("Erro de IO");

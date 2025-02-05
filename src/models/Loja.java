@@ -10,11 +10,21 @@ public class Loja {
         this.valorRecebido = 0;
     }
 
-    public PessoaJuridica getPessoaJuridica() {
-        return pessoaJuridica;
+    public String getId() {
+        return this.pessoaJuridica.getId();
     }
 
     public double getValorRecebido() {
         return valorRecebido;
+    }
+
+    public void recebeValor(double valor){
+        this.valorRecebido += valor;
+    }
+
+    public void printLoja(){
+
+        System.out.println("Loja " + this.getId());
+        System.out.println("Valor recebido: " + this.valorRecebido);
     }
 }

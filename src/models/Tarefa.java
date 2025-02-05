@@ -47,5 +47,14 @@ public class Tarefa {
     public void printTarefa(){
 
         System.out.println("Tarefa " + this.id);
+        System.out.println("Prazo: " + this.prazoEntrega);
+        System.out.println("Valor do Prestador: " + this.valorPrestador);
+        System.out.println("Parcelas: " + this.numParcelas);
+        System.out.println("Compras: ");
+
+        for(int i = 0; i < this.compras.size(); i++){
+            Compra c = this.compras.get(i);
+            c.printCompra();
+        }
     }
 }

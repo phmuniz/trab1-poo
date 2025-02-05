@@ -6,27 +6,25 @@ public class PrestadorServico {
     private PessoaJuridica pessoaJuridica;
     private double valorRecebido;
 
-    public PrestadorServico(PessoaFisica pessoaFisica, PessoaJuridica pessoaJuridica)
-    {
+    public PrestadorServico(PessoaFisica pessoaFisica, PessoaJuridica pessoaJuridica) {
         if (pessoaFisica != null) {
             this.pessoaFisica = pessoaFisica;
         }
-        
-        else if(pessoaJuridica != null){
+
+        else if (pessoaJuridica != null) {
             this.pessoaJuridica = pessoaJuridica;
         }
         this.valorRecebido = 0;
     }
 
     public String getId() {
-        
-        if(this.pessoaFisica != null){
+
+        if (this.pessoaFisica != null) {
             return this.pessoaFisica.getId();
-        }
-        else if(this.pessoaJuridica != null){
+        } else if (this.pessoaJuridica != null) {
             return this.pessoaJuridica.getId();
-        }
-        else return null;
+        } else
+            return null;
     }
 
     public String getTipo() {
@@ -37,7 +35,15 @@ public class PrestadorServico {
         return valorRecebido;
     }
 
-    public void recebeValor(double valor){
+    public void recebeValor(double valor) {
         this.valorRecebido += valor;
+    }
+
+    public void printPrestador() {
+        if (pessoaFisica != null)
+            System.out.println("Nome:" + this.pessoaFisica.getNome());
+        if (pessoaJuridica != null)
+            System.out.println("Nome:" + this.pessoaJuridica.getNome());
+        System.out.println("Valor recebido:" + this.valorRecebido);
     }
 }

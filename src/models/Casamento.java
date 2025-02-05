@@ -12,7 +12,10 @@ public class Casamento extends Evento {
             this.festa = festa;
         }
     }
+    public void setFesta(Festa festa){
 
+        this.festa = festa;
+    }
     public boolean temFesta(){
 
         if(festa == null) return false;
@@ -25,5 +28,7 @@ public class Casamento extends Evento {
         System.out.printf("Data: ");
         DateFunctions.printData(this.getData());
         System.out.println("Hora:"+ this.getHora());
+
+        if(this.festa != null) this.festa.printFesta();
     }
 }
