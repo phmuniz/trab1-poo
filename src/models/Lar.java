@@ -2,6 +2,8 @@ package models;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.Date;
+
 public class Lar {
     
     private String id;
@@ -36,6 +38,25 @@ public class Lar {
     public void adicionaTarefa(Tarefa tarefa){
 
         this.tarefas.add(tarefa);
+    }
+
+    public Date obtemDataInicioPlanejamento(){
+
+        Date dataInicio = new Date();
+
+        for(int i = 0; i < this.tarefas.size(); i++){
+            Tarefa t = this.tarefas.get(i);
+            
+            if(i == 0){
+                dataInicio = t.getDataInicio();
+            }
+
+            if(t.getDataInicio().before(dataInicio)){
+                dataInicio = t.getDataInicio();
+            }
+        }
+
+        return dataInicio;
     }
 
     public void printLar(){

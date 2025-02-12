@@ -22,6 +22,16 @@ public class Casamento extends Evento {
 
         return true;
     }
+
+    public Date obtemDataInicioPlanejamento(){
+
+        return this.festa.getData();
+    }
+
+    public Date obtemDataFimPlanejamento(){
+
+        return this.festa.obtemDataFim();
+    }
     public void printCasamento(){
         System.out.println("Id:" + this.getId());
         System.out.println("Local:" + this.getLocal());

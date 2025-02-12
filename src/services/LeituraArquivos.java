@@ -183,13 +183,13 @@ public class LeituraArquivos {
                 }
                 valores[5] = valores[5].replace(',', '.');
                 int numConvidados = Integer.parseInt(valores[7]);
-                Casamento casal = db.getCasamentoById(valores[1]);
+                Casamento casamento = db.getCasamentoById(valores[1]);
                 Festa festa = new Festa(valores[2],dataFesta,valores[4],valores[0],Double.parseDouble(valores[5]),
                 numConvidados,Integer.parseInt(valores[6]));
                 for(int i = 0; i < numConvidados;i++){
                     festa.adicionaConvidado(valores[8 + i]);
                 }
-                casal.setFesta(festa);
+                casamento.setFesta(festa);
                 db.adicionaFestas(festa);
                 
             }

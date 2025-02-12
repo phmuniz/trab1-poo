@@ -7,7 +7,7 @@ import date.DateFunctions;
 import java.util.ArrayList;
 
 public class Festa extends Evento{
-
+    
     private double preco;
     private int numConvidados;
     private int numParcelas;
@@ -35,6 +35,11 @@ public class Festa extends Evento{
     public void adicionaConvidado(String convidado){
 
         this.convidados.add(convidado);
+    }
+
+    public Date obtemDataFim(){
+        
+        return DateFunctions.somaMeses(getData(), numParcelas);
     }
 
     public void printFesta(){
