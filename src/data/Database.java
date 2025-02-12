@@ -113,6 +113,22 @@ public class Database {
         
     }
 
+    public Casal getCasalByCpf(String cpf1, String cpf2){
+        
+         for(int i = 0; i < this.casais.size(); i++){
+
+            Casal casal = this.casais.get(i);
+            
+            PessoaFisica p1 = casal.getPessoa1();
+            PessoaFisica p2 = casal.getPessoa2();
+
+            if((cpf1.compareTo(p1.getCpf()) == 0 && cpf2.compareTo(p2.getCpf()) == 0) || (cpf1.compareTo(p2.getCpf()) == 0 && cpf2.compareTo(p1.getCpf()) == 0)){
+                return casal;
+            }
+        }
+        return null;
+        
+    }
     public List<Casal> getCasais(){
 
         return this.casais;

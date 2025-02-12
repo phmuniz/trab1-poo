@@ -7,13 +7,15 @@ import models.Casal;
 
 public class CasalServices {
 
-    public static void geraRelatorioCasal(Database db, String id1, String id2){
+    public static void geraRelatorioCasal(Database db, String cpf1, String cpf2){
 
-        Casal casal = db.getCasalById(id1, id2);
-
+        Casal casal = db.getCasalByCpf(cpf1, cpf2); 
+        
         casal.obtemDataInicioFimPlanejamento();
-    }
+        
+        double saldoTotal = casal.obtemSaldoCasal();
     
+    }
     public static void printCasais(Database db){
 
         List<Casal> casais = db.getCasais();

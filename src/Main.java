@@ -1,23 +1,33 @@
 import data.Database;
 import services.CasalServices;
 import services.LeituraArquivos;
-//import services.LojaServices;
-import services.PrestadorServices;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        
+        Scanner ler = new Scanner(System.in);
         Database db = new Database();
+        
+        LeituraArquivos.lePessoas(db, "inputs/01/pessoas.csv");
+        LeituraArquivos.leLares(db, "inputs/01/lares.csv");
+        LeituraArquivos.leCasamentos(db, "inputs/01/casamentos.csv");
+        LeituraArquivos.leTarefas(db, "inputs/01/tarefas.csv");
+        LeituraArquivos.leFestas(db, "inputs/01/festas.csv");
+        LeituraArquivos.leCompras(db, "inputs/01/compras.csv");
+        
+        while(true){
 
-        LeituraArquivos.lePessoas(db, "src/inputs/01/pessoas.csv");
-        LeituraArquivos.leLares(db, "src/inputs/01/lares.csv");
-        LeituraArquivos.leCasamentos(db, "src/inputs/01/casamentos.csv");
-        LeituraArquivos.leTarefas(db, "src/inputs/01/tarefas.csv");
-        LeituraArquivos.leFestas(db, "src/inputs/01/festas.csv");
-        LeituraArquivos.leCompras(db, "src/inputs/01/compras.csv");
+            String entrada = ler.nextLine();
 
-        CasalServices.geraRelatorioCasal(db, "5928374657284960439718273910763458932", "2749812613847265982301756972408391587");
-        PrestadorServices.printPrestadores(db);
-        CasalServices.printCasais(db);
+            if(entrada.compareTo("") == 0) break;
+
+            String[] cpfs = entrada.split(", ");
+            String cpf1 = cpfs[0];
+            String cpf2 = cpfs[1];
+
+            CasalServices.geraRelatorioCasal(db, cpf1, cpf2);
+        }
+
+        ler.close();
     }
 }

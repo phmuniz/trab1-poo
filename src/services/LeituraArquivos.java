@@ -207,9 +207,9 @@ public class LeituraArquivos {
 
                 valores[5] = valores[5].replace(',', '.');
 
-                Compra compra = new Compra(valores[0], valores[3], Integer.parseInt(valores[4]), Double.parseDouble(valores[5]), Integer.parseInt(valores[6]));
-
                 Tarefa tarefa = db.getTarefaById(valores[1]);
+                Date dataCompra = tarefa.getDataInicio();
+                Compra compra = new Compra(valores[0], valores[3], Integer.parseInt(valores[4]), Double.parseDouble(valores[5]), Integer.parseInt(valores[6]), dataCompra);
                 tarefa.adicionaCompra(compra);
 
                 Loja loja = db.getLojaById(valores[2]);

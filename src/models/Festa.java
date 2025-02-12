@@ -1,4 +1,5 @@
 package models;
+
 import java.util.Date;
 import java.util.List;
 
@@ -6,22 +7,34 @@ import date.DateFunctions;
 
 import java.util.ArrayList;
 
-public class Festa extends Evento{
-    
+public class Festa extends Evento {
+
     private double preco;
     private int numConvidados;
     private int numParcelas;
+    private int numParcelasAtual;
+    private Date dataProximaParcela;
     private List<String> convidados = new ArrayList<String>();
 
-    public Festa(String local,Date data,String hora, String id,double preco, int numConvidados, int numParcelas){
-        super(local,data,hora,id);
+    public Festa(String local, Date data, String hora, String id, double preco, int numConvidados, int numParcelas) {
+        super(local, data, hora, id);
         this.preco = preco;
         this.numConvidados = numConvidados;
         this.numParcelas = numParcelas;
+        this.numParcelasAtual = numParcelas;
+        this.dataProximaParcela = data;
+    }
+
+    public Date getDataProximaParcela() {
+        return this.dataProximaParcela;
     }
 
     public double getPreco() {
         return preco;
+    }
+
+    public double getNumParcelasAtual() {
+        return this.numParcelasAtual;
     }
 
     public int getNumConvidados() {
@@ -32,17 +45,23 @@ public class Festa extends Evento{
         return numParcelas;
     }
 
-    public void adicionaConvidado(String convidado){
+    public double pagaFesta() {
+        this.dataProximaParcela = DateFunctions.vaiProProximoMes(this.dataProximaParcela);
+        this.numParcelasAtual--;
+        return (this.preco) / this.numParcelas;
+    }
+
+    public void adicionaConvidado(String convidado) {
 
         this.convidados.add(convidado);
     }
 
-    public Date obtemDataFim(){
-        
+    public Date obtemDataFim() {
+
         return DateFunctions.somaMeses(getData(), numParcelas);
     }
 
-    public void printFesta(){
+    public void printFesta() {
         System.out.println("Festa:");
         System.out.println("ID:" + this.getId());
         System.out.printf("Data:");
@@ -53,7 +72,7 @@ public class Festa extends Evento{
         System.out.println("Parcelas: " + this.numParcelas);
         System.out.println("Convidados: ");
 
-        for(int i = 0; i < convidados.size(); i++){
+        for (int i = 0; i < convidados.size(); i++) {
 
             String c = convidados.get(i);
             System.out.println(c);

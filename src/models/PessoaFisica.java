@@ -40,7 +40,13 @@ public class PessoaFisica extends Pessoa {
     public double getGastoMensal() {
         return gastoMensal;
     }
-
+    public void atualizaPoupanca(Date dataAtual){
+        double rendimento = this.poupanca*0.005;
+        if(DateFunctions.ehDezembro(dataAtual)){
+            this.poupanca = this.poupanca + 2*salario + rendimento - this.gastoMensal;
+        }else
+        this.poupanca = this.poupanca + salario + rendimento - this.gastoMensal;
+    }
     public void printPessoaFisica(){
 
         System.out.println("Nome: " + this.getNome());
