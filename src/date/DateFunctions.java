@@ -19,6 +19,19 @@ public class DateFunctions {
 		System.out.println(formato.format(data));
 	}
 
+	public static String dataFormataMesAno(Date data) {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+		int mesCal = cal.get(Calendar.MONTH);
+		int mes = mesCal + 1;
+		int ano = cal.get(Calendar.YEAR);
+
+		String dataFormatada = (mes < 10 ? "0" : "") + mes + "/" + ano;
+
+		return dataFormatada;
+	}
+
 	public static Date somaMeses(Date data, int qtdMeses) {
 
 		Calendar cal = Calendar.getInstance();
