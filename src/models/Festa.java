@@ -55,7 +55,21 @@ public class Festa extends Evento {
 
         this.convidados.add(convidado);
     }
-
+    public boolean casalEstaNaFesta(String Nome1,String Nome2)
+    {
+        List <String> convidados = this.convidados;
+        int cont = 0;
+        for(int i = 0; i < convidados.size(); i++)
+        {
+            String nomeAtual = convidados.get(i);
+            if (nomeAtual.compareTo(Nome1) == 0 || nomeAtual.compareTo(Nome2) == 0) {
+                cont++;
+            }
+        }
+        if(cont == 2) return true;
+        else 
+        return false;
+    }
     public Date obtemDataFim() {
 
         return DateFunctions.somaMeses(getData(), numParcelas);

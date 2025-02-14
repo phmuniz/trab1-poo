@@ -23,7 +23,7 @@ import java.util.List;
 public class LeituraArquivos {
 
     
-    public static void lePessoas(Database db, String caminho){
+    public static void lePessoas(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
@@ -41,6 +41,9 @@ public class LeituraArquivos {
                         dataNascimento = null;
                     }
 
+                    if(db.verificaPessoaExiste(valores[0])){
+                        throw new Exception("ID repetido " + valores[0] + " na classe Pessoa.");
+                    }
 
                     valores[7] = valores[7].replace(',', '.');
                     valores[8] = valores[8].replace(',', '.');
