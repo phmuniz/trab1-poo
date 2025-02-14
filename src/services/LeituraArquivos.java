@@ -58,6 +58,8 @@ public class LeituraArquivos {
 
                     PessoaJuridica pessoa = new PessoaJuridica(valores[0],valores[2],valores[4],valores[3],valores[5]);
                     db.adicionaPessoaJuridicas(pessoa);
+                    PrestadorServico ps = new PrestadorServico(null, pessoa);
+                    db.adicionaPrestador(ps);
                 }
 
                 else if(tipo.compareTo("L") == 0){
@@ -153,12 +155,19 @@ public class LeituraArquivos {
                 Lar lar = db.getLarById(valores[1]);
                 lar.adicionaTarefa(tarefa);
 
-                PessoaFisica pf = db.getPessoaFisicaById(valores[2]);
-                PessoaJuridica pj = db.getPessoaJuridicaById(valores[2]);
+                PrestadorServico ps = db.getPrestadorById(valores[2]);
 
-                PrestadorServico ps = new PrestadorServico(pf,pj);
-                ps.recebeValor(Double.parseDouble(valores[5]));
-                db.adicionaPrestador(ps);
+                if(ps == null){
+
+                    PessoaFisica pf = db.getPessoaFisicaById(valores[2]);
+
+                    PrestadorServico ps2 = new PrestadorServico(pf,null);
+                    ps2.recebeValor(Double.parseDouble(valores[5]));
+                    db.adicionaPrestador(ps2);
+                }
+                else{
+                    ps.recebeValor(Double.parseDouble(valores[5]));
+                }       
                 
                 db.adicionaTarefa(tarefa);
             }

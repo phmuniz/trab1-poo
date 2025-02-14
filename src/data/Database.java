@@ -179,7 +179,7 @@ public class Database {
 
         this.prestadoresServico.add(prestador);
     }
-
+    
     public PrestadorServico getPrestadorById(String id){
         
          for(int i = 0; i < this.prestadoresServico.size(); i++){
@@ -193,8 +193,8 @@ public class Database {
 
         return null;  
     }
-
-     public List<PrestadorServico> getPrestadoresServico(){
+    
+    public List<PrestadorServico> getPrestadoresServico(){
 
         return this.prestadoresServico;
     }

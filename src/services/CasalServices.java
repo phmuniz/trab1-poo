@@ -1,6 +1,7 @@
 package services;
 
 import java.util.List;
+import java.util.Scanner;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,22 +21,37 @@ public class CasalServices {
         for(int i = 0; i < casais.size(); i++){
 
             Casal casal = casais.get(i);
-
+            
             casal.obtemDataInicioFimPlanejamento();
 
             casal.geraSaldoMensalCasal();
         }
     }
 
-    public static void geraRelatorioCasal(List<Casal> casaisRelatorioPlanejamento){
+    public static void geraRelatorioCasal(Database db){
+
+        Scanner ler = new Scanner(System.in);
 
         try {
             FileWriter fileWriter = new FileWriter("planejamento.csv", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
-            for(int i = 0; i < casaisRelatorioPlanejamento.size(); i++){
+            while(true){
 
-                Casal casal = casaisRelatorioPlanejamento.get(i);
+                String entrada = ler.nextLine();
+    
+                if(entrada.compareTo("") == 0) break;
+    
+                String[] cpfs = entrada.split(", ");
+                String cpf1 = cpfs[0];
+                String cpf2 = cpfs[1];
+    
+                Casal casal = db.getCasalByCpf(cpf1, cpf2);
+
+                if(casal.getTotalGasto() == 0){
+                    printWriter.println("Casal com CPFs " + cpf1 +  " e "  + cpf2 +  " não possui gastos cadastrados.");
+                    continue;
+                }
             
                 List<Double> saldoMensal = casal.getSaldoMensal();
 
@@ -56,7 +72,10 @@ public class CasalServices {
                 }
                 printWriter.println();
             }
+
             printWriter.close();
+            ler.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

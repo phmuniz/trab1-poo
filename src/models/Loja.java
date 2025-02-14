@@ -13,7 +13,10 @@ public class Loja {
     public String getId() {
         return this.pessoaJuridica.getId();
     }
-
+     public String getNome() {
+        return this.pessoaJuridica.getNome();
+    }
+    
     public double getValorRecebido() {
         return valorRecebido;
     }

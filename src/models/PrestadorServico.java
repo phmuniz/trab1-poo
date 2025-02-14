@@ -16,7 +16,6 @@ public class PrestadorServico {
         }
         this.valorRecebido = 0;
     }
-
     public String getId() {
 
         if (this.pessoaFisica != null) {
@@ -30,7 +29,12 @@ public class PrestadorServico {
     public String getTipo() {
         return this.pessoaFisica != null ? "PF" : "PJ";
     }
-
+    public String getNomePrestador() {
+        if(this.pessoaFisica != null){
+            return this.pessoaFisica.getNome();
+        }else
+        return this.pessoaJuridica.getNome();
+    }
     public double getValorRecebido() {
         return valorRecebido;
     }

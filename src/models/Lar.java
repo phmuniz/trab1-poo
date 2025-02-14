@@ -44,6 +44,7 @@ public class Lar {
     public Date obtemDataInicioPlanejamento() {
 
         Date dataInicio = new Date();
+        dataInicio = null;
 
         for (int i = 0; i < this.tarefas.size(); i++) {
             Tarefa t = this.tarefas.get(i);
@@ -63,6 +64,7 @@ public class Lar {
     public Date obtemDataFimPlanejamento() {
 
         Date dataFim = new Date();
+        dataFim = null;
 
         for (int i = 0; i < this.tarefas.size(); i++) {
             Tarefa t = this.tarefas.get(i);

@@ -71,7 +71,7 @@ public class Casal {
     public void geraSaldoMensalCasal() {
 
         Date dataAtual = this.dataInicioPlanejamento;
-        
+        if(dataAtual == null) return;
         while (true) {
             
             this.atualizaSaldoCasal(dataAtual);
@@ -120,10 +120,14 @@ public class Casal {
             Date dataInicioLar = this.lar.obtemDataInicioPlanejamento();
             Date dataFimLar = this.lar.obtemDataFimPlanejamento();
 
-            if (dataInicioLar.before(this.dataInicioPlanejamento)) {
+            if(dataInicioLar == null){
+                return;
+            }
+
+            if (this.dataInicioPlanejamento == null || dataInicioLar.before(this.dataInicioPlanejamento)) {
                 this.setDataInicioPlanejamento(dataInicioLar);
             }
-            if (dataFimLar.after(this.dataFimPlanejamento)) {
+            if (this.dataFimPlanejamento == null || dataFimLar.after(this.dataFimPlanejamento)) {
                 this.setDataFimPlanejamento(dataFimLar);
             }
         }
