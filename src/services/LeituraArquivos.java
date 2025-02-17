@@ -29,9 +29,18 @@ public class LeituraArquivos {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaPessoaExiste(valores[0])){
+                        throw new Exception("ID repetido " + valores[0] + " na classe Pessoa.");
+                }
+
                 String tipo = valores[1];
 
                 if(tipo.compareTo("F") == 0){
+
+                    if(db.ehMesmoCpf(valores[5])){
+                        throw new Exception("O CPF " + valores[5] + " da Pessoa " + valores[0] + " é repetido.");
+                    }
 
                     Date dataNascimento;
                     try{
@@ -39,10 +48,6 @@ public class LeituraArquivos {
                     }
                     catch(ParseException e){
                         dataNascimento = null;
-                    }
-
-                    if(db.verificaPessoaExiste(valores[0])){
-                        throw new Exception("ID repetido " + valores[0] + " na classe Pessoa.");
                     }
 
                     valores[7] = valores[7].replace(',', '.');
@@ -59,6 +64,10 @@ public class LeituraArquivos {
 
                 else if(tipo.compareTo("J") == 0){
 
+                    if(db.ehMesmoCnpj(valores[5])){
+                        throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + valores[0] + " é repetido.");
+                    }
+
                     PessoaJuridica pessoa = new PessoaJuridica(valores[0],valores[2],valores[4],valores[3],valores[5]);
                     db.adicionaPessoaJuridicas(pessoa);
                     PrestadorServico ps = new PrestadorServico(null, pessoa);
@@ -66,6 +75,10 @@ public class LeituraArquivos {
                 }
 
                 else if(tipo.compareTo("L") == 0){
+
+                    if(db.ehMesmoCnpj(valores[5])){
+                        throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + valores[0] + " é repetido.");
+                    }
 
                     PessoaJuridica pessoa = new PessoaJuridica(valores[0],valores[2],valores[4],valores[3],valores[5]);
                     Loja loja = new Loja(pessoa);
@@ -79,12 +92,17 @@ public class LeituraArquivos {
     }
 
 
-    public static void leLares(Database db, String caminho){
+    public static void leLares(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaLarExiste(valores[0])){
+                    throw new Exception("ID repetido " + valores[0] + " na classe Lar.");
+                }
+
                 Lar lar = new Lar(valores[0], valores[3],Integer.parseInt(valores[4]),valores[5]);
                 
                 PessoaFisica p1 = db.getPessoaFisicaById(valores[1]);
@@ -99,12 +117,16 @@ public class LeituraArquivos {
         }
     }
     
-    public static void leCasamentos(Database db, String caminho){
+    public static void leCasamentos(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaCasamentoExiste(valores[0])){
+                    throw new Exception("ID repetido " + valores[0] + " na classe Casamento.");
+                }
 
                 Date dataCasamento;
                 try{
@@ -136,12 +158,16 @@ public class LeituraArquivos {
     }
 
 
-    public static void leTarefas(Database db, String caminho){
+    public static void leTarefas(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaTarefaExiste(valores[0])){
+                    throw new Exception("ID repetido " + valores[0] + " na classe Tarefa.");
+                }
 
                 Date dataInicial;
                 try{
@@ -179,12 +205,16 @@ public class LeituraArquivos {
         }
     }
     
-    public static void leFestas(Database db, String caminho){
+    public static void leFestas(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaFestaExiste(valores[0])){
+                    throw new Exception("ID repetido " + valores[0] + " na classe Festa.");
+                }
 
                  Date dataFesta;
                 try{
@@ -210,12 +240,16 @@ public class LeituraArquivos {
         }
     }
 
-    public static void leCompras(Database db, String caminho){
+    public static void leCompras(Database db, String caminho) throws Exception{
 
         try {
             List<String> linhas = Files.readAllLines(Paths.get(caminho));
             for (String linha : linhas) {
                 String[] valores = linha.split(";");
+
+                if(db.verificaCompraExiste(valores[0])){
+                    throw new Exception("ID repetido " + valores[0] + " na classe Compra.");
+                }
 
                 valores[5] = valores[5].replace(',', '.');
 
@@ -223,6 +257,7 @@ public class LeituraArquivos {
                 Date dataCompra = tarefa.getDataInicio();
                 Compra compra = new Compra(valores[0], valores[3], Integer.parseInt(valores[4]), Double.parseDouble(valores[5]), Integer.parseInt(valores[6]), dataCompra);
                 tarefa.adicionaCompra(compra);
+                db.adicionaCompra(compra);
 
                 Loja loja = db.getLojaById(valores[2]);
                 double valorRecebidoLoja = Integer.parseInt(valores[4]) * Double.parseDouble(valores[5]);

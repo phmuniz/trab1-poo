@@ -53,6 +53,11 @@ public class CasalServices {
 
                 Casal casal = db.getCasalByCpf(cpf1, cpf2);
 
+                if(casal == null){
+                    printWriter.println("Casal com CPFs " + cpf1 + " e " + cpf2 + " não está cadastrado.");
+                    continue;
+                }
+
                 if (casal.getTotalGasto() == 0) {
                     printWriter.println("Casal com CPFs " + cpf1 + " e " + cpf2 + " não possui gastos cadastrados.");
                     continue;

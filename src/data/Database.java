@@ -11,6 +11,7 @@ import models.Lar;
 import models.PrestadorServico;
 import models.Tarefa;
 import models.Festa;
+import models.Compra;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ public class Database {
     private List<PrestadorServico> prestadoresServico = new ArrayList<PrestadorServico>();
     private List<Tarefa> tarefas = new ArrayList<Tarefa>();
     private List<Festa> festas = new ArrayList<Festa>();
+    private List<Compra> compras = new ArrayList<Compra>();
 
     // FUNCOES PESSOAS
     public boolean verificaPessoaExiste(String id) {
@@ -68,6 +70,18 @@ public class Database {
         return null;
     }
 
+    public boolean ehMesmoCpf(String cpf){
+
+        for (int i = 0; i < this.pessoasFisicas.size(); i++) {
+            PessoaFisica pF = this.pessoasFisicas.get(i);
+            if (cpf.compareTo(pF.getCpf()) == 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // FUNCOES PESSOA JURIDICA
     public PessoaJuridica getPessoaJuridicaById(String id) {
 
@@ -85,6 +99,18 @@ public class Database {
     public void adicionaPessoaJuridicas(PessoaJuridica pj) {
 
         this.pessoasJuridicas.add(pj);
+    }
+
+    public boolean ehMesmoCnpj(String cnpj){
+
+        for (int i = 0; i < this.pessoasJuridicas.size(); i++) {
+            PessoaJuridica pj = this.pessoasJuridicas.get(i);
+            if (cnpj.compareTo(pj.getCnpj()) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // FUNCOES LOJAS
@@ -178,6 +204,20 @@ public class Database {
 
     }
 
+    public boolean verificaCasamentoExiste(String id) {
+        
+        for (int i = 0; i < this.casamentos.size(); i++) {
+            
+            Casamento casamento = this.casamentos.get(i);
+            if (id.compareTo(casamento.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
     // FUNCOES LAR
     public void adicionaLar(Lar lar) {
 
@@ -196,6 +236,20 @@ public class Database {
         }
         return null;
 
+    }
+
+    public boolean verificaLarExiste(String id) {
+        
+        for (int i = 0; i < this.lares.size(); i++) {
+            
+            Lar lar = this.lares.get(i);
+            if (id.compareTo(lar.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
     // FUNCOES PRESTADORES
@@ -243,6 +297,20 @@ public class Database {
         return null;
     }
 
+    public boolean verificaTarefaExiste(String id) {
+        
+        for (int i = 0; i < this.tarefas.size(); i++) {
+            
+            Tarefa tarefa = this.tarefas.get(i);
+            if (id.compareTo(tarefa.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
     // FUNCOES FESTAS
     public void adicionaFestas(Festa festa) {
 
@@ -252,5 +320,39 @@ public class Database {
     public List<Festa> getFestas() {
 
         return this.festas;
+    }
+
+    public boolean verificaFestaExiste(String id) {
+        
+        for (int i = 0; i < this.festas.size(); i++) {
+            
+            Festa festa = this.festas.get(i);
+            if (id.compareTo(festa.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    // FUNCOES COMPRAS
+    public void adicionaCompra(Compra compra) {
+
+        this.compras.add(compra);
+    }
+
+    public boolean verificaCompraExiste(String id) {
+        
+        for (int i = 0; i < this.compras.size(); i++) {
+            
+            Compra compra = this.compras.get(i);
+            if (id.compareTo(compra.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }
