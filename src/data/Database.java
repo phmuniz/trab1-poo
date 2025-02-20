@@ -70,7 +70,7 @@ public class Database {
         return null;
     }
 
-    public boolean ehMesmoCpf(String cpf){
+    public boolean ehMesmoCpf(String cpf) {
 
         for (int i = 0; i < this.pessoasFisicas.size(); i++) {
             PessoaFisica pF = this.pessoasFisicas.get(i);
@@ -95,13 +95,23 @@ public class Database {
         }
         return null;
     }
+    public boolean verificaPjExiste(String id){
+        List<PessoaJuridica> pessoasJ = this.pessoasJuridicas;
+        for (int i = 0; i < pessoasJ.size(); i++) {
+            PessoaJuridica pJ = pessoasJ.get(i);
+            if (id.compareTo(pJ.getId()) == 0) {
+                return true;
+            }
 
+        }
+        return false;
+    }
     public void adicionaPessoaJuridicas(PessoaJuridica pj) {
 
         this.pessoasJuridicas.add(pj);
     }
 
-    public boolean ehMesmoCnpj(String cnpj){
+    public boolean ehMesmoCnpj(String cnpj) {
 
         for (int i = 0; i < this.pessoasJuridicas.size(); i++) {
             PessoaJuridica pj = this.pessoasJuridicas.get(i);
@@ -205,9 +215,9 @@ public class Database {
     }
 
     public boolean verificaCasamentoExiste(String id) {
-        
+
         for (int i = 0; i < this.casamentos.size(); i++) {
-            
+
             Casamento casamento = this.casamentos.get(i);
             if (id.compareTo(casamento.getId()) == 0) {
                 return true;
@@ -239,9 +249,9 @@ public class Database {
     }
 
     public boolean verificaLarExiste(String id) {
-        
+
         for (int i = 0; i < this.lares.size(); i++) {
-            
+
             Lar lar = this.lares.get(i);
             if (id.compareTo(lar.getId()) == 0) {
                 return true;
@@ -272,6 +282,20 @@ public class Database {
         return null;
     }
 
+    public boolean verificaPrestadorExiste(String id) {
+        List<PrestadorServico> prestadores = this.prestadoresServico;
+
+        for (int i = 0; i < prestadores.size(); i++) {
+            PrestadorServico p = prestadores.get(i);
+            if (id.compareTo(p.getId()) == 0) {
+                return true;
+            }
+
+        }
+        return false;
+
+    }
+
     public List<PrestadorServico> getPrestadoresServico() {
 
         return this.prestadoresServico;
@@ -298,9 +322,9 @@ public class Database {
     }
 
     public boolean verificaTarefaExiste(String id) {
-        
+
         for (int i = 0; i < this.tarefas.size(); i++) {
-            
+
             Tarefa tarefa = this.tarefas.get(i);
             if (id.compareTo(tarefa.getId()) == 0) {
                 return true;
@@ -323,9 +347,9 @@ public class Database {
     }
 
     public boolean verificaFestaExiste(String id) {
-        
+
         for (int i = 0; i < this.festas.size(); i++) {
-            
+
             Festa festa = this.festas.get(i);
             if (id.compareTo(festa.getId()) == 0) {
                 return true;
@@ -343,11 +367,41 @@ public class Database {
     }
 
     public boolean verificaCompraExiste(String id) {
-        
+
         for (int i = 0; i < this.compras.size(); i++) {
-            
+
             Compra compra = this.compras.get(i);
             if (id.compareTo(compra.getId()) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    // FUNCOES LOJA
+    public boolean verificaLojaEPJ(String id) {
+        PessoaJuridica pj = this.getPessoaJuridicaById(id);
+
+        for (int i = 0; i < this.lojas.size(); i++) {
+
+            Loja loja = this.lojas.get(i);
+            String lojaId = loja.getId();
+            if (pj.getId().compareTo(lojaId) == 0) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    public boolean verificaLojaExiste(String id) {
+        for (int i = 0; i < this.lojas.size(); i++) {
+
+            Loja loja = this.lojas.get(i);
+            if (id.compareTo(loja.getId()) == 0) {
                 return true;
             }
 
