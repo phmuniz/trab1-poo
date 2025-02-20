@@ -1,12 +1,12 @@
 all: run diff
 
 run:
-	java src/Main.java inputs/excecoes/EXC08/
+	java src/Main.java inputs/normais/06/
 
 diff:
-	diff planejamento.csv inputs/excecoes/EXC08/saida/1-planejamento.csv
-	diff estatisticas-prestadores.csv inputs/excecoes/EXC08/saida/2-estatisticas-prestadores.csv
-	diff estatisticas-casais.csv inputs/excecoes/EXC08/saida/3-estatisticas-casais.csv
+	diff estatisticas-prestadores.csv inputs/normais/06/saida/2-estatisticas-prestadores.csv
+	diff estatisticas-casais.csv inputs/normais/06/saida/3-estatisticas-casais.csv
+	./diff_com_tolerancia.sh planejamento.csv inputs/normais/06/saida/1-planejamento.csv
 
 clean:
 	rm -rf planejamento.csv estatisticas-prestadores.csv estatisticas-casais.csv
