@@ -32,20 +32,20 @@ public class CasalServices {
         }
     }
 
-    public static void geraRelatorioPlanejamento(Database db) {
+    public static void geraRelatorioPlanejamento(Database db, String path) {
 
         Scanner ler = new Scanner(System.in);
-
+        String entrada = null;
         try {
-            FileWriter fileWriter = new FileWriter("planejamento.csv", false);
+            FileWriter fileWriter = new FileWriter(path + "/saida/1-planejamento.csv", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             while (true) {
-
-                String entrada = ler.nextLine();
-
-                if (entrada.compareTo("") == 0)
-                    break;
+                if(ler.hasNextLine()){
+                    entrada = ler.nextLine();
+                }else
+                break;
+               
 
                 String[] cpfs = entrada.split(", ");
                 String cpf1 = cpfs[0];
@@ -96,7 +96,7 @@ public class CasalServices {
 
     }
 
-    public static void geraRelatorioCasal(Database db) {
+    public static void geraRelatorioCasal(Database db,String path) {
 
         Comparator<Casal> comparator = new Comparator<Casal>() {
 
@@ -123,7 +123,7 @@ public class CasalServices {
         casais.sort(comparator);
 
         try {
-            FileWriter fileWriter = new FileWriter("estatisticas-casais.csv", false);
+            FileWriter fileWriter = new FileWriter(path + "/saida/3-estatisticas-casais.csv", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             for (int i = 0; i < casais.size(); i++) {

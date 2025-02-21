@@ -22,7 +22,7 @@ public class LojaServices {
         }
     }
 
-    public static void geraRelatorioLoja(Database db){
+    public static void geraRelatorioLoja(Database db,String path){
 
         Comparator<Loja> comparator = new Comparator<Loja>() {
 
@@ -39,7 +39,7 @@ public class LojaServices {
         lojas.sort(comparator);
 
         try {
-            FileWriter fileWriter = new FileWriter("estatisticas-prestadores.csv", true);
+            FileWriter fileWriter = new FileWriter(path + "/saida/2-estatisticas-prestadores.csv", true);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             for(int i = 0; i < lojas.size(); i++){

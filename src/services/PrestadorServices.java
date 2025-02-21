@@ -22,7 +22,7 @@ public class PrestadorServices {
         }
     }
 
-    public static void geraRelatorioPrestador(Database db){
+    public static void geraRelatorioPrestador(Database db,String path){
 
         Comparator<PrestadorServico> comparator = new Comparator<PrestadorServico>() {
 
@@ -44,7 +44,7 @@ public class PrestadorServices {
         prestadores.sort(comparator);
 
         try {
-            FileWriter fileWriter = new FileWriter("estatisticas-prestadores.csv", false);
+            FileWriter fileWriter = new FileWriter(path + "/saida/2-estatisticas-prestadores.csv", false);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             for(int i = 0; i < prestadores.size(); i++){
