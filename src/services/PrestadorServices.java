@@ -33,6 +33,9 @@ public class PrestadorServices {
                 if(aux == 0) {
                     
                     int comparaValor = (int)(p2.getValorRecebido() - p1.getValorRecebido());
+                    if (comparaValor == 0) {
+                        return p1.getNomePrestador().compareTo(p2.getNomePrestador());
+                    }else
                     return comparaValor;
                 }
                 return aux;

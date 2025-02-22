@@ -57,7 +57,6 @@ public class Casal {
         double rendimento = this.saldoCasal * 0.005;
         double salarioCasal = this.pessoa1.getSalario() + this.pessoa2.getSalario();
         double gastoMensalCasal = this.pessoa1.getGastoMensal() + this.pessoa2.getGastoMensal();
-
         if (DateFunctions.ehDezembro(dataAtual)) {
             this.saldoCasal = this.saldoCasal + 2 * salarioCasal + rendimento - gastoMensalCasal;
         } else

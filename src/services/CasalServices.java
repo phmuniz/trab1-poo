@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 
 import data.Database;
 import models.Casal;
+import models.Casamento;
 import models.PessoaFisica;
 import models.Festa;
 
@@ -130,7 +131,6 @@ public class CasalServices {
             for (int i = 0; i < casais.size(); i++) {
 
                 Casal casalAtual = casais.get(i);
-
                 PessoaFisica p1 = casalAtual.getPessoa1();
                 PessoaFisica p2 = casalAtual.getPessoa2();
 
@@ -151,7 +151,7 @@ public class CasalServices {
                         numFestas++;
                     }
                 }
-
+                
                 printWriter.println(numFestas);
             }
 

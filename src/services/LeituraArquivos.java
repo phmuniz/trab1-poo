@@ -104,19 +104,19 @@ public class LeituraArquivos {
 
                 Lar lar = new Lar(valores[0], valores[3], Integer.parseInt(valores[4]), valores[5]);
 
-                if (db.verificaPessoaExiste(valores[1]) == false && db.verificaPessoaExiste(valores[2]) == false) {
+                PessoaFisica p1 = db.getPessoaFisicaById(valores[1]);
+                PessoaFisica p2 = db.getPessoaFisicaById(valores[2]);
 
+                if (p1 == null && p2 == null) {
                     throw new Exception("ID(s) de Pessoa " + valores[1] + " " + valores[2]
                             + " " + "não cadastrado no Lar de ID " + valores[0] + ".");
-                } else if (db.verificaPessoaExiste(valores[1]) == false) {
+                } else if (p1 == null) {
                     throw new Exception(
                             "ID(s) de Pessoa " + valores[1] + " " + "não cadastrado no Lar de ID " + valores[0] + ".");
-                } else if (db.verificaPessoaExiste(valores[2]) == false) {
+                } else if (p2 == null) {
                     throw new Exception(
                             "ID(s) de Pessoa " + valores[2] + " " + "não cadastrado no Lar de ID " + valores[0] + ".");
                 }
-                PessoaFisica p1 = db.getPessoaFisicaById(valores[1]);
-                PessoaFisica p2 = db.getPessoaFisicaById(valores[2]);
 
                 Casal casal = new Casal(p1, p2, lar, null);
                 db.adicionaLar(lar);
@@ -146,21 +146,20 @@ public class LeituraArquivos {
                 }
 
                 Casamento casamento = new Casamento(valores[5], dataCasamento, valores[4], valores[0], null);
-                if (db.verificaPessoaExiste(valores[1]) == false && db.verificaPessoaExiste(valores[2]) == false) {
-
+                PessoaFisica p1 = db.getPessoaFisicaById(valores[1]);
+                PessoaFisica p2 = db.getPessoaFisicaById(valores[2]);
+                if (p1 == null && p2 == null) {
                     throw new Exception("ID(s) de Pessoa " + valores[1] + " " + valores[2]
                             + " " + "não cadastrado no Casamento de ID " + valores[0] + ".");
-                } else if (db.verificaPessoaExiste(valores[1]) == false) {
+                } else if (p1 == null) {
                     throw new Exception(
                             "ID(s) de Pessoa " + valores[1] + " " + "não cadastrado no Casamento de ID " + valores[0]
                                     + ".");
-                } else if (db.verificaPessoaExiste(valores[2]) == false) {
+                } else if (p2 == null) {
                     throw new Exception(
                             "ID(s) de Pessoa " + valores[2] + " " + "não cadastrado no Casamento de ID " + valores[0]
                                     + ".");
                 }
-                PessoaFisica p1 = db.getPessoaFisicaById(valores[1]);
-                PessoaFisica p2 = db.getPessoaFisicaById(valores[2]);
 
                 Casal casal = db.getCasalById(p1.getId(), p2.getId());
                 if (casal != null) {
@@ -172,7 +171,9 @@ public class LeituraArquivos {
 
                 db.adicionaCasamento(casamento);
             }
-        } catch (IOException e) {
+        } catch (
+
+        IOException e) {
             System.out.println("Erro de IO");
         }
     }
@@ -199,11 +200,12 @@ public class LeituraArquivos {
 
                 Tarefa tarefa = new Tarefa(valores[0], dataInicial, Integer.parseInt(valores[4]),
                         Double.parseDouble(valores[5]), Integer.parseInt(valores[6]));
-                if (db.verificaLarExiste(valores[1]) == false) {
+
+                Lar lar = db.getLarById(valores[1]);
+                if (lar == null) {
                     throw new Exception(
                             "ID(s) de Lar " + valores[1] + " " + "não cadastrado na Tarefa de ID " + valores[0] + ".");
                 }
-                Lar lar = db.getLarById(valores[1]);
                 lar.adicionaTarefa(tarefa);
                 PrestadorServico ps = db.getPrestadorById(valores[2]);
 
@@ -248,12 +250,12 @@ public class LeituraArquivos {
                 }
                 valores[5] = valores[5].replace(',', '.');
                 int numConvidados = Integer.parseInt(valores[7]);
-                if (db.verificaCasamentoExiste(valores[1]) == false) {
+                Casamento casamento = db.getCasamentoById(valores[1]);
+                if (casamento == null) {
                     throw new Exception(
                             "ID(s) de Casamento " + valores[1] + " " + "não cadastrado na Festa de ID "
                                     + valores[0] + ".");
                 }
-                Casamento casamento = db.getCasamentoById(valores[1]);
                 Festa festa = new Festa(valores[2], dataFesta, valores[4], valores[0], Double.parseDouble(valores[5]),
                         numConvidados, Integer.parseInt(valores[6]));
                 for (int i = 0; i < numConvidados; i++) {
@@ -281,12 +283,13 @@ public class LeituraArquivos {
                 }
 
                 valores[5] = valores[5].replace(',', '.');
-                if (db.verificaTarefaExiste(valores[1]) == false) {
+
+                Tarefa tarefa = db.getTarefaById(valores[1]);
+                if (tarefa == null) {
                     throw new Exception(
                             "ID(s) de Tarefa " + valores[1] + " " + "não cadastrado na Compra de ID "
                                     + valores[0] + ".");
                 }
-                Tarefa tarefa = db.getTarefaById(valores[1]);
                 Date dataCompra = tarefa.getDataInicio();
                 Compra compra = new Compra(valores[0], valores[3], Integer.parseInt(valores[4]),
                         Double.parseDouble(valores[5]), Integer.parseInt(valores[6]), dataCompra);
@@ -304,7 +307,8 @@ public class LeituraArquivos {
                                         + valores[0] + ".");
                 }
                 Loja loja = db.getLojaById(valores[2]);
-                double valorRecebidoLoja = Integer.parseInt(valores[4]) * Double.parseDouble(valores[5]);
+                double valorRecebidoLoja = (double)(Integer.parseInt(valores[4]) * Double.parseDouble(valores[5]));
+                System.out.println(valorRecebidoLoja);
                 loja.recebeValor(valorRecebidoLoja);
             }
         } catch (IOException e) {
