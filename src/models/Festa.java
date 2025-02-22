@@ -58,14 +58,11 @@ public class Festa extends Evento {
     public boolean casalEstaNaFesta(String Nome1,String Nome2)
     {
         List <String> convidados = this.convidados;
-        String nome1Consertado = Nome1.replace(" ", "");
-        String nome2Consertado = Nome2.replace(" ", "");
         int cont = 0;
         for(int i = 0; i < convidados.size(); i++)
         {
             String nomeAtual = convidados.get(i);
-            String nomeConsertado = nomeAtual.replace(" ", "");
-            if (nomeConsertado.compareTo(nome1Consertado) == 0 || nomeConsertado.compareTo(nome2Consertado) == 0) {
+            if (nomeAtual.compareTo(Nome1) == 0 || nomeAtual .compareTo(Nome2) == 0) {
                 cont++;
             }
         }

@@ -51,9 +51,9 @@ public class LeituraArquivos {
                     valores[7] = valores[7].replace(',', '.');
                     valores[8] = valores[8].replace(',', '.');
                     valores[9] = valores[9].replace(',', '.');
-
+                    String nome = valores[2].trim();
                     PessoaFisica pessoa = new PessoaFisica(
-                            valores[0], valores[2], valores[4], valores[3],
+                            valores[0], nome, valores[4], valores[3],
                             dataNascimento, valores[5],
                             Double.parseDouble(valores[7]), Double.parseDouble(valores[8]),
                             Double.parseDouble(valores[9]));
@@ -65,8 +65,8 @@ public class LeituraArquivos {
                     if (db.ehMesmoCnpj(valores[5])) {
                         throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + valores[0] + " é repetido.");
                     }
-
-                    PessoaJuridica pessoa = new PessoaJuridica(valores[0], valores[2], valores[4], valores[3],
+                    String nome = valores[2].trim();
+                    PessoaJuridica pessoa = new PessoaJuridica(valores[0], nome, valores[4], valores[3],
                             valores[5]);
                     db.adicionaPessoaJuridicas(pessoa);
                     PrestadorServico ps = new PrestadorServico(null, pessoa);
@@ -78,8 +78,8 @@ public class LeituraArquivos {
                     if (db.ehMesmoCnpj(valores[5])) {
                         throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + valores[0] + " é repetido.");
                     }
-
-                    PessoaJuridica pessoa = new PessoaJuridica(valores[0], valores[2], valores[4], valores[3],
+                    String nome = valores[2].trim();
+                    PessoaJuridica pessoa = new PessoaJuridica(valores[0], nome, valores[4], valores[3],
                             valores[5]);
                     Loja loja = new Loja(pessoa);
                     db.adicionaLojas(loja);
@@ -205,17 +205,16 @@ public class LeituraArquivos {
                 }
                 Lar lar = db.getLarById(valores[1]);
                 lar.adicionaTarefa(tarefa);
-                if (db.verificaPrestadorExiste(valores[2]) == false) {
-                    throw new Exception(
-                            "ID(s) de Prestador de Serviço " + valores[2] + " " + "não cadastrado na Tarefa de ID "
-                                    + valores[0] + ".");
-                }
                 PrestadorServico ps = db.getPrestadorById(valores[2]);
 
                 if (ps == null) {
 
                     PessoaFisica pf = db.getPessoaFisicaById(valores[2]);
-
+                    if (pf == null) {
+                        throw new Exception(
+                                "ID(s) de Prestador de Serviço " + valores[2] + " " + "não cadastrado na Tarefa de ID "
+                                        + valores[0] + ".");
+                    }
                     PrestadorServico ps2 = new PrestadorServico(pf, null);
                     ps2.recebeValor(Double.parseDouble(valores[5]));
                     db.adicionaPrestador(ps2);
@@ -258,7 +257,8 @@ public class LeituraArquivos {
                 Festa festa = new Festa(valores[2], dataFesta, valores[4], valores[0], Double.parseDouble(valores[5]),
                         numConvidados, Integer.parseInt(valores[6]));
                 for (int i = 0; i < numConvidados; i++) {
-                    festa.adicionaConvidado(valores[8 + i]);
+                    String convidado = valores[8 + i].trim();
+                    festa.adicionaConvidado(convidado);
                 }
                 casamento.setFesta(festa);
                 db.adicionaFestas(festa);
@@ -299,9 +299,9 @@ public class LeituraArquivos {
                                 "ID " + valores[2] + " da Compra de ID " + valores[0]
                                         + " não se refere a uma loja, mas a uma PJ.");
                     } else
-                    throw new Exception(
-                        "ID(s) de Loja " + valores[2] + " " + "não cadastrado na Compra de ID "
-                                + valores[0] + ".");
+                        throw new Exception(
+                                "ID(s) de Loja " + valores[2] + " " + "não cadastrado na Compra de ID "
+                                        + valores[0] + ".");
                 }
                 Loja loja = db.getLojaById(valores[2]);
                 double valorRecebidoLoja = Integer.parseInt(valores[4]) * Double.parseDouble(valores[5]);

@@ -43,14 +43,15 @@ public class CasalServices {
             while (true) {
                 if(ler.hasNextLine()){
                     entrada = ler.nextLine();
+                    if (entrada.compareTo("") == 0)
+                    break;
                 }else
                 break;
                
-
+        
                 String[] cpfs = entrada.split(", ");
                 String cpf1 = cpfs[0];
                 String cpf2 = cpfs[1];
-
                 Casal casal = db.getCasalByCpf(cpf1, cpf2);
 
                 if(casal == null){
@@ -169,7 +170,6 @@ public class CasalServices {
         for (int i = 0; i < casais.size(); i++) {
 
             casais.get(i).printCasal();
-            ;
             System.out.printf("\n");
         }
     }

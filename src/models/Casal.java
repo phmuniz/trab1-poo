@@ -20,11 +20,10 @@ public class Casal {
 
     public Casal(PessoaFisica pessoa1, PessoaFisica pessoa2, Lar lar, Casamento casamento) {
 
-        if(pessoa1.getNome().compareTo(pessoa2.getNome()) < 0){
+        if (pessoa1.getNome().compareTo(pessoa2.getNome()) < 0) {
             this.pessoa1 = pessoa1;
             this.pessoa2 = pessoa2;
-        }
-        else{
+        } else {
             this.pessoa1 = pessoa2;
             this.pessoa2 = pessoa1;
         }
@@ -54,25 +53,24 @@ public class Casal {
         this.casamento = casamento;
     }
 
-    private void atualizaSaldoCasal(Date dataAtual){
-
-        double rendimento = this.saldoCasal*0.005;
+    private void atualizaSaldoCasal(Date dataAtual) {
+        double rendimento = this.saldoCasal * 0.005;
         double salarioCasal = this.pessoa1.getSalario() + this.pessoa2.getSalario();
         double gastoMensalCasal = this.pessoa1.getGastoMensal() + this.pessoa2.getGastoMensal();
 
-        if(DateFunctions.ehDezembro(dataAtual)){
-            this.saldoCasal = this.saldoCasal + 2*salarioCasal + rendimento - gastoMensalCasal;
-        }
-        else
-        this.saldoCasal = this.saldoCasal + salarioCasal + rendimento - gastoMensalCasal;
+        if (DateFunctions.ehDezembro(dataAtual)) {
+            this.saldoCasal = this.saldoCasal + 2 * salarioCasal + rendimento - gastoMensalCasal;
+        } else
+            this.saldoCasal = this.saldoCasal + salarioCasal + rendimento - gastoMensalCasal;
     }
 
     public void geraSaldoMensalCasal() {
 
         Date dataAtual = this.dataInicioPlanejamento;
-        if(dataAtual == null) return;
+        if (dataAtual == null)
+            return;
         while (true) {
-            
+
             this.atualizaSaldoCasal(dataAtual);
 
             if (this.casamento != null && this.casamento.temFesta()) {
@@ -98,7 +96,8 @@ public class Casal {
                 this.totalGasto += valorTarefa;
             }
 
-            if (DateFunctions.ehMesmoMes(dataAtual, this.dataFimPlanejamento)) break;
+            if (DateFunctions.ehMesmoMes(dataAtual, this.dataFimPlanejamento))
+                break;
 
             dataAtual = DateFunctions.vaiProProximoMes(dataAtual);
             this.saldoMensal.add(this.saldoCasal);
@@ -119,7 +118,7 @@ public class Casal {
             Date dataInicioLar = this.lar.obtemDataInicioPlanejamento();
             Date dataFimLar = this.lar.obtemDataFimPlanejamento();
 
-            if(dataInicioLar == null){
+            if (dataInicioLar == null) {
                 return;
             }
 
@@ -141,15 +140,15 @@ public class Casal {
     }
 
     public Date getDataInicioPlanejamento() {
-       return this.dataInicioPlanejamento;
+        return this.dataInicioPlanejamento;
     }
 
-    public double getTotalGasto(){
+    public double getTotalGasto() {
 
         return this.totalGasto;
     }
 
-    public List<Double> getSaldoMensal(){
+    public List<Double> getSaldoMensal() {
 
         return this.saldoMensal;
     }
