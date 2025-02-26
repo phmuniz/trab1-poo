@@ -32,9 +32,11 @@ public class LeituraArquivos {
                 if (db.verificaPessoaExiste(id)) {
                     throw new Exception("ID repetido " + id + " na classe Pessoa.");
                 }
-                String tipo = valores[1];
+                String tipo = valores[1].replace(" ", "");
 
                 if (tipo.compareTo("F") == 0) {
+
+                    valores[5] = valores[5].replace(" ", "");
 
                     if (db.ehMesmoCpf(valores[5])) {
                         throw new Exception("O CPF " + valores[5] + " da Pessoa " + id + " é repetido.");
@@ -48,8 +50,12 @@ public class LeituraArquivos {
                     }
 
                     valores[7] = valores[7].replace(',', '.');
+                    valores[7] = valores[7].replace(" ", "");
                     valores[8] = valores[8].replace(',', '.');
+                    valores[8] = valores[8].replace(" ", "");
                     valores[9] = valores[9].replace(',', '.');
+                    valores[9] = valores[9].replace(" ", "");
+
                     String nome = valores[2].trim();
                     PessoaFisica pessoa = new PessoaFisica(
                             id, nome, valores[4], valores[3],
@@ -60,6 +66,8 @@ public class LeituraArquivos {
                 }
 
                 else if (tipo.compareTo("J") == 0) {
+
+                    valores[5] = valores[5].replace(" ", "");
 
                     if (db.ehMesmoCnpj(valores[5])) {
                         throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + id + " é repetido.");
@@ -73,6 +81,8 @@ public class LeituraArquivos {
                 }
 
                 else if (tipo.compareTo("L") == 0) {
+
+                    valores[5] = valores[5].replace(" ", "");
 
                     if (db.ehMesmoCnpj(valores[5])) {
                         throw new Exception("O CNPJ " + valores[5] + " da Pessoa " + id+ " é repetido.");
@@ -104,6 +114,7 @@ public class LeituraArquivos {
                 if (db.verificaLarExiste(id)) {
                     throw new Exception("ID repetido " + id + " na classe Lar.");
                 }
+
                 Lar lar = new Lar(id, valores[3], Integer.parseInt(valores[4]), valores[5]);
 
                 PessoaFisica p1 = db.getPessoaFisicaById(idp1);
@@ -200,7 +211,11 @@ public class LeituraArquivos {
                     dataInicial = null;
                 }
 
+
                 valores[5] = valores[5].replace(',', '.');
+                valores[5] = valores[5].replace(" ", "");
+                valores[4] = valores[4].replace(" ", "");
+                valores[6] = valores[6].replace(" ", "");
 
                 Tarefa tarefa = new Tarefa(id, dataInicial, Integer.parseInt(valores[4]),
                         Double.parseDouble(valores[5]), Integer.parseInt(valores[6]));
@@ -254,6 +269,9 @@ public class LeituraArquivos {
                     dataFesta = null;
                 }
                 valores[5] = valores[5].replace(',', '.');
+                valores[5] = valores[5].replace(" ", "");
+                valores[6] = valores[6].replace(" ", "");
+                valores[7] = valores[7].replace(" ", "");
                 int numConvidados = Integer.parseInt(valores[7]);
                 Casamento casamento = db.getCasamentoById(idCasamento);
                 if (casamento == null) {
@@ -294,6 +312,9 @@ public class LeituraArquivos {
                 }
 
                 valores[5] = valores[5].replace(',', '.');
+                valores[5] = valores[5].replace(" ", "");
+                valores[4] = valores[4].replace(" ", "");
+                valores[6] = valores[6].replace(" ", "");
 
                 Tarefa tarefa = db.getTarefaById(idTarefa);
                 if (tarefa == null) {

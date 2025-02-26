@@ -50,9 +50,9 @@ public class CasalServices {
                 break;
                
         
-                String[] cpfs = entrada.split(", ");
-                String cpf1 = cpfs[0];
-                String cpf2 = cpfs[1];
+                String[] cpfs = entrada.split(",");
+                String cpf1 = cpfs[0].replace(" ", "");
+                String cpf2 = cpfs[1].replace(" ", "");;
                 Casal casal = db.getCasalByCpf(cpf1, cpf2);
 
                 if(casal == null){
@@ -98,6 +98,22 @@ public class CasalServices {
 
     }
 
+    private static boolean ehCasalComMesmoNome(Casal c1, Casal c2){
+
+        PessoaFisica p1C1 = c1.getPessoa1();
+        PessoaFisica p2C1 = c1.getPessoa2();
+        PessoaFisica p1C2 = c2.getPessoa1();
+        PessoaFisica p2C2 = c2.getPessoa2();
+
+        if((p1C1.getNome() == p1C2.getNome() && p2C1.getNome() == p2C2.getNome()) ||
+        (p1C1.getNome() == p2C2.getNome() && p2C1.getNome() == p1C2.getNome())
+        ){
+            return true;
+        }
+
+        return false;
+    }
+
     public static void geraRelatorioCasal(Database db,String path) {
 
         Comparator<Casal> comparator = new Comparator<Casal>() {
@@ -120,7 +136,7 @@ public class CasalServices {
         };
 
         List<Casal> casais = db.getCasais();
-        List<Festa> festas = db.getFestas();
+        //List<Festa> festas = db.getFestas();
 
         casais.sort(comparator);
 
@@ -143,12 +159,23 @@ public class CasalServices {
 
                 int numFestas = 0;
 
-                for (int j = 0; j < festas.size(); j++) {
+                for (int j = 0; j < casais.size(); j++) {
 
-                    Festa festaAtual = festas.get(j);
+                    Casal c = casais.get(j);
 
-                    if (festaAtual.casalEstaNaFesta(nome1, nome2)) {
-                        numFestas++;
+                    if(CasalServices.ehCasalComMesmoNome(casalAtual, c)){
+                        continue;
+                    }
+
+                    Casamento casamento = c.getCasamento();
+
+                    if(casamento != null && casamento.temFesta()){
+
+                        Festa f = casamento.getFesta();
+
+                        if (f.casalEstaNaFesta(nome1, nome2)) {
+                            numFestas++;
+                        }
                     }
                 }
                 

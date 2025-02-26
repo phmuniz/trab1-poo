@@ -9,6 +9,8 @@ public class DateFunctions {
 
 	public static Date criaData(String dataString) throws ParseException {
 
+		dataString = dataString.replace(" ", "");
+
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataFormatada = formato.parse(dataString);
 		return dataFormatada;

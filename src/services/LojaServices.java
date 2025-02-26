@@ -30,6 +30,9 @@ public class LojaServices {
             public int compare(Loja l1, Loja l2) {
                       
                 int comparaValor = (int)(l2.getValorRecebido() - l1.getValorRecebido());
+                if (comparaValor == 0) {
+                    return l1.getNome().compareTo(l2.getNome());
+                }else
                 return comparaValor;
             }
         };
